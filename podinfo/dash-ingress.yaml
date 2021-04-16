@@ -8,10 +8,10 @@ spec:
   rules:
   - http:
       paths:
-      - path: /dash
+      - path: /podinfo
         pathType: Prefix
         backend:
           service:
-            name: kubernetes-dashboard
+            name: podinfo
             port:
-              number: 80
+              number: 9898
