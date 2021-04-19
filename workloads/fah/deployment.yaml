@@ -1,0 +1,29 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: fah
+  labels:
+    app: fah
+
+---
+
+apiVersion: v1
+kind: Pod
+metadata:
+  name: fah
+  namespace: fah
+  labels:
+    k8s-app: fah
+spec:
+      containers:
+      - name: fah
+        image: docker.io/beastob/foldingathome-arm64:latest
+        env:
+        - name: FOLD_ANON
+          value: "false"
+        - name: FOLD_USER
+          value: "aknowles"
+        - name: FOLD_TEAM
+          value: "team-imnc"
+      nodeSelector:
+        fah: true
