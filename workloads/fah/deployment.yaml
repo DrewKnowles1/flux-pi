@@ -26,4 +26,5 @@ spec:
         - name: FOLD_TEAM
           value: "team-imnc"
       nodeSelector:
-        fah: true
+        fah: "true"
+
