@@ -6,4 +6,5 @@ This cluster is comprised of:
 
 - 1 x Raspberry Pi 4 8gb
 - 2 x Raspberry Pi 3 B+
+- 1 x Nvidia Jetson Nano
 - 1 x Turing Pi Clusterboard, containing 7 x Raspberry pi compute module 3's
