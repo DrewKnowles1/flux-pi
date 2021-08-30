@@ -1,0 +1,62 @@
+kind: Namespace
+apiVersion: v1
+metadata:
+  name: omni-system
+
+---
+
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: omni-config
+  namespace: omni-system
+data:
+  OMNI_INFLUX_URL: "https://europe-west1-1.gcp.cloud2.influxdata.com"
+  OMNI_INFLUX_TOKEN: "amzL3E9_nch9jWOC9FYYx-oNv9XBLGMjRVko8UZPlnj9CQKuHOIjrEmuBm9HhefepuVdlc2UOpjCvave6803iA=="
+  OMNI_INFLUX_BUCKET: "57e12569a9e18675"
+  OMNI_INFLUX_ORG: "595ff4d0043b838d"
+  OMNI_DATA_RATE_SECONDS: "5"
+
+---
+
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: omni-metrics
+  namespace: omni-system
+spec:
+  selector:
+    matchLabels:
+      app: omni-monitor
+  template:
+    metadata:
+      labels:
+        app: omni-monitor
+    spec:
+      volumes:
+      - name: rootfs
+        hostPath:
+          path: /proc
+      containers:
+      - name: omni
+        image: mattogodoy/omni:arm
+        imagePullPolicy: Always
+        envFrom:
+        - configMapRef:
+            name: omni-config
+        env:
+        - name: OMNI_HOST_NAME
+          valueFrom:
+            fieldRef:
+              fieldPath: spec.nodeName
+        - name: OMNI_HOST_IP
+          valueFrom:
+            fieldRef:
+              fieldPath: status.hostIP
+        volumeMounts:
+        - name: rootfs
+          mountPath: /rootfs/proc
+          readOnly: true
+      tolerations:
+      - effect: NoSchedule
+        operator: Exists
