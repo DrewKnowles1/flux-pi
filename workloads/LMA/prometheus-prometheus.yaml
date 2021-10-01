@@ -40,6 +40,8 @@ spec:
     matchLabels:
       prometheus: k8s
       role: alert-rules
+  nodeSelector:
+    node: pi4
   scrapeInterval: 30s
   scrapeTimeout: 30s
   securityContext:
