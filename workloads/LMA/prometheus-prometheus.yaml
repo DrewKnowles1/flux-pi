@@ -29,6 +29,7 @@ spec:
   image: prom/prometheus:v2.19.1
   nodeSelector:
     kubernetes.io/os: linux
+    node: pi4
   podMonitorNamespaceSelector: {}
   podMonitorSelector: {}
   replicas: 1
