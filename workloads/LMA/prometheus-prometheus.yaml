@@ -8,6 +8,13 @@ metadata:
 spec:
   affinity:
     podAntiAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+        nodeSelectorTerms:
+        - matchExpressions:
+          - key: node
+            operator: In
+            values:
+            - pi4        
       preferredDuringSchedulingIgnoredDuringExecution:
       - podAffinityTerm:
           labelSelector:
@@ -41,8 +48,6 @@ spec:
     matchLabels:
       prometheus: k8s
       role: alert-rules
-  nodeSelector:
-    node: pi4
   scrapeInterval: 30s
   scrapeTimeout: 30s
   securityContext:
